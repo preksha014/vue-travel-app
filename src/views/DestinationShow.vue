@@ -9,30 +9,35 @@
 </template>
 
 <script setup>
-// import sourceData from '../data.json'
-import { computed, onMounted, ref,watchEffect } from 'vue'
-import { useRoute } from 'vue-router'
+import sourceData from '../data.json'
+import { computed,defineProps } from 'vue'
+// import { useRoute } from 'vue-router'
 
-const route = useRoute()
-const destination = ref(null)
-// const destinationId = computed(() => parseInt(route.params.id))
+// const route = useRoute()
+// const destination = ref(null)
+const props = defineProps({
+  id: {
+    type: Number,
+    required: true
+  }
+})
 
-const fetchDestination = async () => {
-    const response = await fetch(`https://travel-dummy-api.netlify.app/${route.params.slug}/`);
-    destination.value = await response.json();
-};
+//const destinationId = computed(() => parseInt(route.params.id))
+const destination = computed(() => {
+    return sourceData.destinations.find(
+        destination => destination.id ===props.id
+    )
+})
+// const fetchDestination = async () => {
+//     const response = await fetch(`https://travel-dummy-api.netlify.app/${route.params.slug}/`);
+//     destination.value = await response.json();
+// };
 
-onMounted(fetchDestination);
+// onMounted(fetchDestination);
 
-watchEffect(() => {
-    fetchDestination();
-});
-
-// const destination = computed(() => {
-//     return sourceData.destinations.find(
-//         destination => destination.id === destinationId.value
-//     )
-// })
+// watchEffect(() => {
+//     fetchDestination();
+// });
 
 // onMounted(async()=>{
 //     const response=await fetch(`https://travel-dummy-api.netlify.app/${route.params.slug}/`);

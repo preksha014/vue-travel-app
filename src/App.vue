@@ -1,16 +1,13 @@
 <script setup>
+import TheNavigation from "./components/TheNavigation.vue";
 
 </script>
 
 <template>
-  <router-link to="/">Home</router-link>
-  <router-link to="/about">About</router-link>
-
+  <TheNavigation/>
   <div class="container">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
